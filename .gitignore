@@ -30,6 +30,9 @@ backups/
 .DS_Store
 Thumbs.db
 desktop.ini
+*.doc
+*.docx
+*.docm
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

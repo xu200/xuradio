@@ -49,6 +49,7 @@
     "backgroundColorCustom": false,
     "floatLayer": false,
     "cinema": true,
+    "playAura": true,
     "edge": false,
     "aiDepth": false,
     "bloom": false,

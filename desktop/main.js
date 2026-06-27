@@ -29,7 +29,8 @@ const WINDOWED_SCALE = 3 / 4;
 const WINDOWED_MARGIN = 32;
 const MIN_WINDOWED_WIDTH = 960;
 const MIN_WINDOWED_HEIGHT = 540;
-const APP_NAME = 'Mineradio';
+const APP_STORAGE_NAME = 'Mineradio';
+const APP_NAME = "xu's radio";
 const APP_USER_MODEL_ID = 'com.mineradio.desktop';
 const APP_ICON_ICO = path.join(__dirname, '..', 'build', 'icon.ico');
 const NETEASE_LOGIN_PARTITION = 'persist:mineradio-netease-login';
@@ -121,6 +122,38 @@ function waitForServer(server) {
     server.once('listening', resolve);
     server.once('error', reject);
   });
+}
+
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function loadMainWindowUrlWithRetry(win, url) {
+  const attempts = 4;
+  let lastError = null;
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    try {
+      await win.loadURL(url);
+      return;
+    } catch (error) {
+      lastError = error;
+      if (!win || win.isDestroyed()) throw error;
+      const message = error && error.message ? error.message : String(error);
+      console.warn(`[Startup] main window load failed (${attempt}/${attempts}): ${message}`);
+      if (attempt >= attempts) break;
+      await delay(220 * attempt + 180);
+    }
+  }
+  throw lastError || new Error('MAIN_WINDOW_LOAD_FAILED');
+}
+
+function handleStartupError(error) {
+  const message = error && error.stack ? error.stack : String(error || 'Unknown startup error');
+  console.error("xu's radio startup failed:", message);
+  try {
+    dialog.showErrorBox("xu's radio 启动失败", message);
+  } catch (e) {}
+  app.quit();
 }
 
 function sendWindowState(win) {
@@ -287,7 +320,7 @@ function ensureDesktopShortcut() {
       target,
       cwd: path.dirname(target),
       args: '',
-      description: 'Mineradio desktop music player',
+      description: "xu's radio desktop music player",
       icon: fs.existsSync(APP_ICON_ICO) ? APP_ICON_ICO : target,
       iconIndex: 0,
       appUserModelId: APP_USER_MODEL_ID,
@@ -929,7 +962,7 @@ function createDesktopLyricsWindow(payload = {}) {
     focusable: false,
     skipTaskbar: true,
     show: false,
-    title: 'Mineradio Desktop Lyrics',
+    title: "xu's radio Desktop Lyrics",
     webPreferences: {
       preload: path.join(__dirname, 'overlay-preload.js'),
       contextIsolation: true,
@@ -1058,7 +1091,7 @@ function createWallpaperWindow(payload = {}) {
     focusable: false,
     skipTaskbar: true,
     show: false,
-    title: 'Mineradio Wallpaper',
+    title: "xu's radio Wallpaper",
     webPreferences: {
       preload: path.join(__dirname, 'overlay-preload.js'),
       contextIsolation: true,
@@ -1130,7 +1163,7 @@ ipcMain.handle('mineradio-export-json-file', async (event, payload = {}) => {
     const owner = getSenderWindow(event);
     const defaultName = String(payload.defaultName || 'mineradio-export.json').replace(/[\\/:*?"<>|]+/g, '-');
     const result = await dialog.showSaveDialog(owner, {
-      title: '导出 Mineradio 存档',
+      title: "导出 xu's radio 存档",
       defaultPath: defaultName.toLowerCase().endsWith('.json') ? defaultName : `${defaultName}.json`,
       filters: [{ name: 'JSON', extensions: ['json'] }],
     });
@@ -1147,7 +1180,7 @@ ipcMain.handle('mineradio-import-json-file', async (event) => {
   try {
     const owner = getSenderWindow(event);
     const result = await dialog.showOpenDialog(owner, {
-      title: '导入 Mineradio 存档',
+      title: "导入 xu's radio 存档",
       properties: ['openFile'],
       filters: [{ name: 'JSON', extensions: ['json'] }],
     });
@@ -1423,10 +1456,13 @@ async function createWindow() {
     setTimeout(() => applyWindowedBounds(mainWindow), 50);
   });
 
-  await mainWindow.loadURL(`http://127.0.0.1:${port}`);
+  await loadMainWindowUrlWithRetry(mainWindow, `http://127.0.0.1:${port}`);
 }
 
 app.setName(APP_NAME);
+try {
+  app.setPath('userData', path.join(app.getPath('appData'), APP_STORAGE_NAME));
+} catch (e) {}
 if (process.platform === 'win32') app.setAppUserModelId(APP_USER_MODEL_ID);
 
 if (!gotSingleInstanceLock) {
@@ -1447,10 +1483,10 @@ if (!gotSingleInstanceLock) {
     screen.on('display-added', () => scheduleWindowStateSend(mainWindow));
     screen.on('display-removed', () => scheduleWindowStateSend(mainWindow));
     await createWindow();
-  });
+  }).catch(handleStartupError);
 
   app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+    if (BrowserWindow.getAllWindows().length === 0) createWindow().catch(handleStartupError);
     else focusMainWindow();
   });
 

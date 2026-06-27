@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mineradio</title>
+<title>xu's radio</title>
 <meta name="referrer" content="no-referrer">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Inter:wght@200;300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700;900&family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
 <script src="vendor/three.r128.min.js"></script>
@@ -1086,6 +1086,8 @@ body.desktop-shell.diy-mode #bottom-bar.stage-mode{left:50%;width:min(1080px,cal
 .preset-card[data-preset="6"] .pc-yui7w{color:#3257f7;font-family:"Microsoft Yi Baiti","SimHei","Microsoft YaHei",sans-serif;font-weight:900;font-style:italic;letter-spacing:.7px}
 .preset-card[data-preset="6"] .pc-icon{color:#3257f7}
 .preset-card[data-preset="6"].active .pc-icon{color:#3257f7!important;text-shadow:0 0 12px rgba(50,87,247,.44)}
+.preset-card[data-preset="7"] .pc-icon{color:#64f6ff}
+.preset-card[data-preset="7"].active .pc-icon{color:#64f6ff!important;text-shadow:0 0 14px rgba(100,246,255,.46),0 0 24px rgba(255,76,202,.20)}
 .preset-card .pc-bg{position:absolute;inset:0;opacity:.35;pointer-events:none}
 @keyframes preset-card-pulse{0%{opacity:0;transform:scale(.6) rotate(0deg)}35%{opacity:1}100%{opacity:0;transform:scale(1.25) rotate(12deg)}}
 .user-archive-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:0 0 12px}
@@ -1186,6 +1188,9 @@ body.desktop-shell.diy-mode #bottom-bar.stage-mode{left:50%;width:min(1080px,cal
 .fx-toggle.dev-locked:hover{background:rgba(255,255,255,.026);border-color:rgba(255,255,255,.07)}
 .fx-toggle.dev-locked .dot{background:rgba(255,255,255,.10);box-shadow:none}
 .fx-toggle.dev-locked.on{color:rgba(255,255,255,.38)!important;background:rgba(255,255,255,.018)!important;border-color:rgba(255,255,255,.045)!important}
+.playback-fx-grid{grid-template-columns:1fr;margin-bottom:10px}
+.playback-fx-grid .fx-toggle{min-height:46px}
+.playback-fx-grid .fx-toggle span:first-child{font-size:12.5px;font-weight:700}
 .fx-dev-badge{display:inline-flex;align-items:center;margin-left:5px;padding:1px 5px;border-radius:999px;border:1px solid rgba(244,210,138,.28);background:rgba(244,210,138,.08);color:rgba(244,210,138,.76);font-style:normal;font-size:9px;font-weight:800;line-height:1.35;vertical-align:1px;letter-spacing:.05em}
 .fx-slider.dev-locked{opacity:.48;filter:saturate(.72)}
 .fx-slider.dev-locked input{cursor:not-allowed}
@@ -1887,8 +1892,8 @@ html.control-glass-svg-ok #visual-guide-btn:hover{
 
   <!-- 主内容 -->
   <div class="splash-content">
-    <div class="splash-wordmark" id="splash-wordmark" aria-label="Mineradio">
-      <span class="splash-word-mine">Mine</span>
+    <div class="splash-wordmark" id="splash-wordmark" aria-label="xu's radio">
+      <span class="splash-word-mine">xu's</span>
       <span class="splash-word-radio" aria-label="radio">rad<span class="splash-word-i" aria-hidden="true"></span><span class="splash-word-o">o</span></span>
     </div>
     <div class="splash-signal-line"></div>
@@ -1928,7 +1933,7 @@ html.control-glass-svg-ok #visual-guide-btn:hover{
 </div>
 
 <!-- 空场 Home -->
-<section id="empty-home" aria-label="Mineradio home">
+<section id="empty-home" aria-label="xu's radio home">
   <div class="empty-home-shell">
     <div class="home-hero">
       <div class="home-hero-inner home-construction-inner">
@@ -2005,7 +2010,7 @@ html.control-glass-svg-ok #visual-guide-btn:hover{
 <!-- 控制台 (右侧贴边自动显示, 无关闭按钮) -->
 <div id="fx-panel">
   <div class="fx-head">
-    <div><div class="fx-title">视觉控制台</div><div class="fx-sub">MINERADIO VISUALS · 鼠标移开自动隐藏</div></div>
+    <div><div class="fx-title">视觉控制台</div><div class="fx-sub">XU'S RADIO VISUALS · 鼠标移开自动隐藏</div></div>
   </div>
 
   <div class="fx-section-label">视觉预设</div>
@@ -2074,6 +2079,10 @@ html.control-glass-svg-ok #visual-guide-btn:hover{
   <div class="fx-slider"><label>背景透明度</label><input id="fx-bgopacity" type="range" min="0" max="1" step="0.01"><output></output></div>
   <div class="fx-slider"><label>控制台玻璃色差</label><input id="fx-glassaberration" type="range" min="0" max="140" step="1"><output></output></div>
 
+  <div class="fx-section-label">播放特效</div>
+  <div class="fx-toggle-grid playback-fx-grid" id="playback-fx-primary-controls">
+    <div class="fx-toggle" id="t-playAura" onclick="toggleFx('playAura')" title="播放时叠加低频能量环和光束"><span>播放光环</span><span class="dot"></span></div>
+  </div>
   <div class="fx-section-label">主控</div>
   <div class="fx-slider"><label>律动强度</label><input id="fx-intensity" type="range" min="0.2" max="1.6" step="0.01"><output></output></div>
   <div class="fx-slider"><label>立体感</label><input id="fx-depth" type="range" min="0.2" max="1.8" step="0.01"><output></output></div>
@@ -2470,7 +2479,7 @@ html.control-glass-svg-ok #visual-guide-btn:hover{
       <button id="login-provider-qq" class="qq" type="button" onclick="setLoginProvider('qq')">QQ 音乐</button>
     </div>
     <div class="login-intro">
-      <div class="login-intro-kicker">Mineradio</div>
+      <div class="login-intro-kicker">xu's radio</div>
       <div class="login-intro-title">音乐播放器，也是一座视觉舞台</div>
       <div class="login-intro-body">搜索或导入一首歌即可播放；登录后会同步歌单、红心和播客，让封面、歌词和粒子跟着音乐动起来。</div>
     </div>
@@ -2619,7 +2628,7 @@ html.control-glass-svg-ok #visual-guide-btn:hover{
     <div class="update-panel-inner">
       <div class="update-panel-head">
         <div>
-          <div class="update-kicker">MINERADIO</div>
+          <div class="update-kicker">XU'S RADIO</div>
           <div id="update-modal-title" class="update-title">New release</div>
           <div id="update-modal-version" class="update-version">v1.0.10</div>
         </div>
@@ -3241,7 +3250,7 @@ var fxDefaults = {
   desktopLyricsFps: 60,
   wallpaperMode: false,
   wallpaperOpacity: 1,
-  floatLayer: false, cinema: true, edge: false, aiDepth: false, bloom: false, lyricGlow: true,
+  floatLayer: false, cinema: true, playAura: true, edge: false, aiDepth: false, bloom: false, lyricGlow: true,
   lyricGlowBeat: true,
   lyricGlowParticles: false,
   lyricCameraLock: false,
@@ -3314,6 +3323,7 @@ var PACKAGED_DEFAULT_FX_SNAPSHOT = Object.freeze({
   backgroundColorCustom: false,
   floatLayer: false,
   cinema: true,
+  playAura: true,
   edge: false,
   aiDepth: false,
   bloom: false,
@@ -6129,11 +6139,11 @@ void main(){
   }
 
   // ====================================================
-  //  Preset 5: WALLPAPER PULSE
+  //  Preset 5 / 6: WALLPAPER PULSE
   //  Layered music-particle wallpaper: aurora ribbons, depth sparks,
   //  and cover-colored audio flow.
   // ====================================================
-  else {
+  else if (uPreset < 6.5) {
     float bassGlow = smoothstep(0.07, 0.78, uBass) * 0.34 + uBeat * 0.014;
     float midGlow = smoothstep(0.07, 0.62, uMid) * 0.42;
     float highGlow = smoothstep(0.04, 0.46, uTreble) * 0.46;
@@ -6205,7 +6215,125 @@ void main(){
   }
 
   // ====================================================
-  //  鼠标交互 (仅 SILK)
+  //  Preset 7: GLASS CONCERT
+  //  Singer on a circular stage with inner-field, outer-field, and hill crowds.
+  // ====================================================
+  else {
+    float row = aUv.y;
+    float seed = hash11(aRand * 911.7);
+    float bassStage = smoothstep(0.055, 0.82, uBass + uEnergy * 0.32);
+    float midStage = smoothstep(0.050, 0.62, uMid);
+    float trebleStage = smoothstep(0.038, 0.48, uTreble);
+    float beatSoft = smoothstep(0.070, 0.72, uBeat) * 0.42;
+    float breath = 0.5 + 0.5 * sin(t * 0.46 + seed * 1.7);
+    float slowWave = 0.5 + 0.5 * sin(t * 0.28 + aUv.x * 6.2831);
+    float transition = clamp(uBurstAmt, 0.0, 1.0);
+
+    if (row > 0.77) {
+      vec2 s = vec2((aUv.x - 0.5) * 2.7, (row - 0.875) * 5.4);
+      float sing = (0.34 + midStage * 0.48 + trebleStage * 0.18) * (0.54 + 0.46 * sin(t * 2.15 + seed * 3.4));
+      float bodySway = sin(t * 0.72 + seed * 1.2) * (0.035 + midStage * 0.022);
+      float armRaise = sing * 0.16 + trebleStage * 0.055 + beatSoft * 0.030;
+      float head = 1.0 - smoothstep(0.145, 0.235, length(s - vec2(0.0, 0.47)));
+      float torso = 1.0 - smoothstep(0.18, 0.46, length(vec2(s.x * 0.72, (s.y - 0.02) * 1.18)));
+      torso *= smoothstep(-0.40, -0.04, s.y) * (1.0 - smoothstep(0.34, 0.58, s.y));
+      float armL = exp(-pow((s.y - (-0.04 - abs(s.x + 0.33) * 0.42 + bodySway * 0.30)) / 0.048, 2.0)) * smoothstep(-0.70, -0.18, s.x) * (1.0 - smoothstep(-0.18, 0.02, s.x));
+      float armR = exp(-pow((s.y - (0.10 + armRaise - abs(s.x - 0.30) * 0.26)) / 0.052, 2.0)) * smoothstep(0.05, 0.24, s.x) * (1.0 - smoothstep(0.70, 0.92, s.x));
+      float mic = exp(-pow((s.x - (0.52 + armRaise * 0.36)) / 0.026, 2.0)) * smoothstep(-0.48, -0.08, s.y) * (1.0 - smoothstep(0.42 + armRaise * 0.26, 0.62 + armRaise * 0.26, s.y));
+      float micHead = 1.0 - smoothstep(0.022, 0.060, length(s - vec2(0.49 + armRaise * 0.34, 0.34 + armRaise * 0.18)));
+      float mouth = exp(-pow(s.x / 0.070, 2.0) - pow((s.y - (0.425 - sing * 0.020)) / (0.018 + sing * 0.030), 2.0)) * head;
+      float singer = clamp(max(max(max(head, torso), mouth), max(max(armL, armR), max(mic, micHead))), 0.0, 1.0);
+      float halo = exp(-dot(s, s) * 0.68);
+      float backBeam = exp(-pow(abs(s.x) - (0.42 + seed * 0.26), 2.0) / 0.030) * smoothstep(-0.65, 0.62, s.y);
+      float haze = max(halo * 0.24, backBeam * 0.18);
+
+      pos.x = s.x * 0.92 + bodySway * singer + snoise(vec3(s.x * 1.8, s.y * 1.2, t * 0.18)) * 0.018;
+      pos.y = s.y * 0.90 + 0.46 + singer * 0.055 + sin(t * 0.42 + seed * 4.0) * singer * 0.018 + mouth * sing * 0.020;
+      pos.z = 0.38 + singer * 0.28 + mouth * (0.18 + sing * 0.16) + haze * 0.07 + (seed - 0.5) * 0.12;
+      vAlpha = singer * (0.72 + breath * 0.08 + bassStage * 0.04 + mouth * 0.34) + haze * (0.10 + midStage * 0.05);
+      vec3 singerCol = mix(vec3(0.80, 0.94, 0.98), vec3(1.00, 0.83, 0.68), head * 0.26 + armR * 0.18);
+      singerCol = mix(singerCol, vec3(1.0, 0.56, 0.42), mouth * (0.38 + sing * 0.34));
+      vec3 hazeCol = mix(vec3(0.34, 0.76, 0.92), vec3(0.90, 0.78, 0.96), slowWave);
+      vColor = mix(hazeCol, singerCol, singer) * (0.78 + singer * 0.58 + haze * 0.18);
+      maxRippleAmp = max(maxRippleAmp, singer * (0.12 + bassStage * 0.04) + mouth * (0.22 + sing * 0.16) + haze * (0.06 + midStage * 0.04));
+    } else {
+      float local = 0.0;
+      float stageLayer = 0.0;
+      float radiusMin = 0.58;
+      float radiusMax = 2.05;
+      float yBase = -1.42;
+      float yScale = 0.34;
+      float zBase = 0.30;
+      float crowdSize = 0.35;
+      if (row < 0.30) {
+        local = row / 0.30;
+        stageLayer = 0.0;
+        radiusMin = 0.64;
+        radiusMax = 2.14;
+        yBase = -1.34;
+        yScale = 0.30;
+        zBase = 0.28;
+        crowdSize = 0.44;
+      } else if (row < 0.58) {
+        local = (row - 0.30) / 0.28;
+        stageLayer = 1.0;
+        radiusMin = 2.16;
+        radiusMax = 4.18;
+        yBase = -1.42;
+        yScale = 0.36;
+        zBase = -0.48;
+        crowdSize = 0.32;
+      } else {
+        local = (row - 0.58) / 0.19;
+        stageLayer = 2.0;
+        radiusMin = 4.10;
+        radiusMax = 6.45;
+        yBase = -0.62 + local * 1.22;
+        yScale = 0.20;
+        zBase = -2.05 - local * 0.42;
+        crowdSize = 0.24;
+      }
+
+      float angle = aUv.x * 6.2831853 + seed * 0.035;
+      float ringStep = floor(local * 9.0);
+      float ringLocal = fract(local * 9.0);
+      float ringN = (ringStep + 0.5) / 9.0;
+      float radius = mix(radiusMin, radiusMax, ringN);
+      float ringLine = exp(-pow((ringLocal - 0.50) / 0.24, 2.0));
+      float crowdJitter = (seed - 0.5) * (0.18 + stageLayer * 0.05);
+      float sway = sin(t * (0.34 + seed * 0.12) + seed * 6.2831) * (0.018 + midStage * 0.018);
+      float wave = sin(angle * (2.0 + stageLayer) - t * 0.62 + ringN * 4.0) * (0.018 + bassStage * 0.028);
+      float handLift = smoothstep(0.72, 0.98, seed) * (0.05 + midStage * 0.09 + beatSoft * 0.04);
+      float platform = exp(-pow((radius - 0.88) / 0.18, 2.0)) * (1.0 - stageLayer);
+      float stageRim = exp(-pow((radius - 1.72) / 0.085, 2.0)) * (1.0 - stageLayer);
+
+      pos.x = cos(angle) * (radius + crowdJitter);
+      pos.y = yBase + sin(angle) * radius * yScale + sway + wave + handLift;
+      pos.z = zBase + local * (0.64 - stageLayer * 0.12) + (seed - 0.5) * 0.38 + stageRim * 0.12 + platform * 0.05;
+
+      float crowd = ringLine * (0.42 + smoothstep(0.18, 1.0, seed) * crowdSize);
+      float farFade = stageLayer > 1.5 ? 0.62 : 1.0;
+      vAlpha = crowd * farFade * (0.30 + breath * 0.10 + bassStage * 0.06 + handLift * 1.6) + stageRim * 0.56 + platform * 0.20;
+      vec3 innerCol = mix(vec3(0.72, 0.92, 0.96), vec3(0.96, 0.82, 0.64), smoothstep(0.10, 1.0, seed));
+      vec3 outerCol = mix(vec3(0.48, 0.74, 0.88), vec3(0.86, 0.72, 0.96), smoothstep(0.18, 1.0, seed));
+      vec3 hillCol = mix(vec3(0.30, 0.52, 0.68), vec3(0.72, 0.78, 0.92), slowWave * 0.55 + seed * 0.22);
+      vec3 layerCol = stageLayer < 0.5 ? innerCol : (stageLayer < 1.5 ? outerCol : hillCol);
+      vec3 glassCol = mix(layerCol, coverColor, stageLayer < 0.5 ? 0.22 : 0.10);
+      vColor = mix(glassCol, vec3(0.95, 0.98, 1.0), stageRim * 0.45 + platform * 0.22) * (0.72 + crowd * 0.72 + handLift * 0.45);
+      maxRippleAmp = max(maxRippleAmp, crowd * (0.10 + bassStage * 0.05 + midStage * 0.05) + stageRim * (0.28 + beatSoft * 0.14));
+    }
+
+    if (transition > 0.001) {
+      float bloom = smoothstep(0.0, 1.0, transition);
+      pos.y += bloom * (0.045 + breath * 0.035);
+      pos.z += (seed - 0.5) * bloom * 0.18;
+      vAlpha *= 0.92 + bloom * 0.18;
+      maxRippleAmp = max(maxRippleAmp, bloom * 0.08);
+    }
+  }
+
+  // ====================================================
+  //  鼠标交互: emily 封面是局部凸起；舞台预设是追光 + 人群抬升。
   // ====================================================
   if (uMouseActive > 0.5 && uPreset < 0.5) {
     float mdx = pos.x - uMouseXY.x;
@@ -6215,6 +6343,19 @@ void main(){
       float push = (1.0 - md) * (1.0 - md);
       pos.z += push * 0.55;
     }
+  }
+  if (uMouseActive > 0.5 && uPreset > 6.5) {
+    float mdx = pos.x - uMouseXY.x;
+    float mdy = pos.y - uMouseXY.y;
+    float md = sqrt(mdx*mdx + mdy*mdy);
+    float spot = 1.0 - smoothstep(0.0, 1.38, md);
+    float ringSpot = exp(-pow((md - 0.82) / 0.20, 2.0)) * 0.42;
+    float lift = spot * spot;
+    pos.z += lift * (0.26 + uMid * 0.10) + ringSpot * 0.08;
+    pos.y += lift * (0.045 + uBass * 0.018);
+    vColor = mix(vColor, vec3(1.00, 0.96, 0.78), spot * 0.34 + ringSpot * 0.18);
+    vAlpha += spot * 0.18 + ringSpot * 0.08;
+    maxRippleAmp = max(maxRippleAmp, spot * 0.26 + ringSpot * 0.20);
   }
 
   // ====================================================
@@ -6267,7 +6408,9 @@ void main(){
   vColor = mix(vColor, tintedColor, clamp(uTintStrength, 0.0, 1.0) * (1.0 - blackParticleGuard));
 
   vBright = 0.82 + maxRippleAmp * 0.55 + uBass * 0.10 + edgeBoost * 0.30 + uEnergy * 0.05 + uBurstAmt * 0.40;
-  if (uPreset > 4.5) {
+  if (uPreset > 6.5) {
+    vBright = 0.86 + maxRippleAmp * 0.42 + uBass * 0.030 + uMid * 0.030 + uEnergy * 0.028 + uBurstAmt * 0.055;
+  } else if (uPreset > 4.5) {
     vBright = 0.94 + maxRippleAmp * 0.34 + uBass * 0.020 + uEnergy * 0.026 + uBurstAmt * 0.025;
   } else if (uPreset > 3.5) {
     vBright = 0.94 + maxRippleAmp * 0.64 + uBass * 0.08 + edgeBoost * 0.12 + uEnergy * 0.05 + uBeat * 0.16 + uBurstAmt * 0.16;
@@ -6314,7 +6457,10 @@ void main(){
   float depthSize = 36.0 / max(0.5, -mvPos.z);
   float audioBoost = 1.0 + maxRippleAmp * 0.7 + edgeBoost * 0.55 + uBeat * 0.30 + uBurstAmt * 0.5;
   float sz = clamp(depthSize * audioBoost, 1.05, 4.95);
-  if (uPreset > 4.5) {
+  if (uPreset > 6.5) {
+    float stageDrive = uBass * 0.040 + uMid * 0.040 + uTreble * 0.045 + uBurstAmt * 0.038 + uBeat * 0.035;
+    sz = clamp(depthSize * (0.88 + stageDrive), 0.72, 3.65);
+  } else if (uPreset > 4.5) {
     float flowDrive = uBass * 0.070 + uMid * 0.046 + uTreble * 0.060 + uBurstAmt * 0.090 + uBeat * 0.055;
     sz = clamp(depthSize * (1.05 + flowDrive), 1.00, 5.45);
   } else if (uPreset > 3.5) {
@@ -6339,6 +6485,10 @@ varying float vBright, vRipple, vEdgeBoost, vAlpha, vSourceLum;
 void main(){
   vec4 tex = texture2D(uDotTex, gl_PointCoord);
   if (tex.a < 0.02) discard;
+  if (uPreset > 6.5) {
+    if (tex.a < 0.055) discard;
+    tex.a = pow(tex.a, 1.42);
+  }
   vec3 col = vColor * vBright;
   col = mix(col, col * 1.3 + vec3(0.05), vEdgeBoost * 0.35);
   col = mix(col, col * 1.2, vRipple * 0.4);
@@ -6352,7 +6502,9 @@ void main(){
   col = mix(col, vec3(0.0), readableRim * lightParticle * 0.38);
   col = mix(col, vec3(1.0), readableRim * darkParticle * 0.20);
   col = clamp(col, vec3(0.0), vec3(1.6));
-  gl_FragColor = vec4(col, tex.a * uAlpha * uParticleDim * vAlpha);
+  float outAlpha = tex.a * uAlpha * uParticleDim * vAlpha;
+  if (uPreset > 6.5) outAlpha *= 1.14;
+  gl_FragColor = vec4(col, outAlpha);
 }
 `;
 
@@ -6381,7 +6533,8 @@ void main(){
   float pulse = 1.0 + vRipple * 0.65;
   float keepBlack = 1.0 - smoothstep(0.025, 0.115, vSourceLum);
   float bloomKeep = 1.0 - keepBlack * 0.92;
-  gl_FragColor = vec4(col, soft * uAlpha * uBloomStrength * uParticleDim * pulse * 0.55 * vAlpha * bloomKeep);
+  float stageBloom = uPreset > 6.5 ? 0.28 : 1.0;
+  gl_FragColor = vec4(col, soft * uAlpha * uBloomStrength * uParticleDim * pulse * 0.55 * vAlpha * bloomKeep * stageBloom);
 }
 `;
 var bloomMaterial = new THREE.ShaderMaterial({
@@ -6397,6 +6550,144 @@ particles.frustumCulled = false;
 particles.renderOrder = 1;
 scene.add(particles);
 console.log('v7 shell loaded, JS pending');
+
+// ============================================================
+//  播放能量环：播放期额外叠加的低频能量光束，不替代原封面粒子
+// ============================================================
+var PLAY_AURA_COUNT = 840;
+var playAuraGroup = null;
+var playAuraUniforms = null;
+var playAuraState = { power: 0, beat: 0 };
+
+function createPlayAuraLayer() {
+  if (playAuraGroup) return;
+  var auraGeo = new THREE.BufferGeometry();
+  var positions = new Float32Array(PLAY_AURA_COUNT * 3);
+  var angles = new Float32Array(PLAY_AURA_COUNT);
+  var lanes = new Float32Array(PLAY_AURA_COUNT);
+  var seeds = new Float32Array(PLAY_AURA_COUNT);
+  var sides = new Float32Array(PLAY_AURA_COUNT);
+  var colorShift = new Float32Array(PLAY_AURA_COUNT);
+  for (var i = 0; i < PLAY_AURA_COUNT; i++) {
+    var lane = Math.floor(i % 7);
+    var side = i % 2 === 0 ? -1 : 1;
+    positions[i * 3] = 0;
+    positions[i * 3 + 1] = 0;
+    positions[i * 3 + 2] = 0;
+    angles[i] = (i / PLAY_AURA_COUNT) * Math.PI * 2 * 7 + (Math.random() - 0.5) * 0.055;
+    lanes[i] = lane;
+    seeds[i] = Math.random();
+    sides[i] = side;
+    colorShift[i] = Math.random();
+  }
+  auraGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  auraGeo.setAttribute('aAngle', new THREE.BufferAttribute(angles, 1));
+  auraGeo.setAttribute('aLane', new THREE.BufferAttribute(lanes, 1));
+  auraGeo.setAttribute('aSeed', new THREE.BufferAttribute(seeds, 1));
+  auraGeo.setAttribute('aSide', new THREE.BufferAttribute(sides, 1));
+  auraGeo.setAttribute('aColorShift', new THREE.BufferAttribute(colorShift, 1));
+
+  playAuraUniforms = {
+    uTime: uniforms.uTime,
+    uBass: uniforms.uBass,
+    uMid: uniforms.uMid,
+    uTreble: uniforms.uTreble,
+    uBeat: uniforms.uBeat,
+    uEnergy: uniforms.uEnergy,
+    uPixel: uniforms.uPixel,
+    uDotTex: uniforms.uDotTex,
+    uAlpha: uniforms.uAlpha,
+    uTintColor: uniforms.uTintColor,
+    uAuraPower: { value: 0 },
+    uAuraBeat: { value: 0 }
+  };
+  var auraVs = `
+attribute float aAngle;
+attribute float aLane;
+attribute float aSeed;
+attribute float aSide;
+attribute float aColorShift;
+uniform float uTime, uBass, uMid, uTreble, uBeat, uEnergy, uPixel, uAlpha, uAuraPower, uAuraBeat;
+uniform vec3 uTintColor;
+varying float vAlpha, vSpark;
+varying vec3 vColor;
+
+void main(){
+  float lane = aLane / 6.0;
+  float spin = uTime * (0.10 + lane * 0.065) * aSide;
+  float wave = sin(aAngle * 2.0 + uTime * (0.72 + lane * 0.28) + aSeed * 6.2831);
+  float beat = smoothstep(0.04, 0.62, uAuraBeat);
+  float drive = clamp(uBass * 1.22 + uEnergy * 0.48 + beat * 0.72, 0.0, 1.55);
+  float angle = aAngle + spin + wave * (0.035 + drive * 0.055);
+  float radius = 2.54 + lane * 0.29 + drive * (0.30 + lane * 0.13) + beat * 0.22;
+  float ellipse = 0.56 + lane * 0.018 + uMid * 0.08;
+  vec3 p = vec3(cos(angle) * radius, sin(angle) * radius * ellipse, -0.18 + lane * 0.13);
+  p.x += sin(uTime * 0.82 + aSeed * 9.0) * 0.045;
+  p.y += cos(uTime * 0.68 + aSeed * 7.0) * 0.035;
+  p.z += sin(angle * 3.0 + uTime * 0.5) * (0.16 + uTreble * 0.18);
+  vec4 mv = modelViewMatrix * vec4(p, 1.0);
+  gl_Position = projectionMatrix * mv;
+  float flicker = 0.68 + 0.32 * sin(uTime * (1.4 + aSeed * 2.0) + aSeed * 8.0);
+  float frontFade = smoothstep(-3.2, 0.6, mv.z);
+  vAlpha = uAuraPower * uAlpha * frontFade * (0.18 + lane * 0.14) * flicker * (0.70 + drive * 0.62);
+  vSpark = clamp(beat * 0.75 + uTreble * 0.65 + aColorShift * 0.36, 0.0, 1.0);
+  vec3 cyan = vec3(0.22, 0.80, 1.35);
+  vec3 amber = vec3(1.35, 0.86, 0.28);
+  vec3 violet = vec3(0.50, 0.40, 1.22);
+  vec3 autoColor = mix(cyan, amber, smoothstep(0.20, 0.88, lane));
+  autoColor = mix(autoColor, violet, smoothstep(0.72, 1.0, aColorShift) * 0.36);
+  vColor = mix(autoColor, normalize(uTintColor + vec3(0.08)) * 1.18, 0.28);
+  gl_PointSize = (1.2 + lane * 0.58 + drive * 2.6 + beat * 2.2) * uPixel;
+}
+`;
+  var auraFs = `
+uniform sampler2D uDotTex;
+varying float vAlpha, vSpark;
+varying vec3 vColor;
+void main(){
+  vec4 tex = texture2D(uDotTex, gl_PointCoord);
+  if (tex.a < 0.015) discard;
+  float core = smoothstep(0.12, 0.92, tex.a);
+  vec3 col = vColor * (0.72 + vSpark * 0.55);
+  gl_FragColor = vec4(col, tex.a * core * vAlpha);
+}
+`;
+  var auraMat = new THREE.ShaderMaterial({
+    uniforms: playAuraUniforms,
+    vertexShader: auraVs,
+    fragmentShader: auraFs,
+    transparent: true,
+    depthWrite: false,
+    depthTest: false,
+    blending: THREE.AdditiveBlending
+  });
+  playAuraGroup = new THREE.Points(auraGeo, auraMat);
+  playAuraGroup.frustumCulled = false;
+  playAuraGroup.renderOrder = 2;
+  playAuraGroup.visible = false;
+  scene.add(playAuraGroup);
+}
+
+function updatePlayAuraLayer(dt) {
+  if (!playAuraGroup) createPlayAuraLayer();
+  if (!playAuraGroup || !playAuraUniforms) return;
+  var skullPresetActive = fx && fx.preset === SKULL_PRESET_INDEX;
+  var active = fx && fx.playAura !== false && playing && audio && !audio.paused && !skullPresetActive && !isDeepBackgroundMode();
+  var qualityMul = fx && fx.performanceQuality === 'eco' ? 0.58 : 1;
+  if (fx && fx.preset === 7) qualityMul *= 0.24;
+  var target = active ? clamp01(0.18 + smoothEnergy * 0.62 + beatPulse * 0.50) * qualityMul : 0;
+  var ease = target > playAuraState.power ? 0.13 : 0.075;
+  playAuraState.power += (target - playAuraState.power) * Math.min(1, ease * Math.max(1, dt * 60));
+  playAuraState.beat = Math.max(playAuraState.beat * Math.pow(0.08, dt), beatPulse);
+  playAuraUniforms.uAuraPower.value = playAuraState.power;
+  playAuraUniforms.uAuraBeat.value = playAuraState.beat;
+  playAuraGroup.visible = playAuraState.power > 0.012;
+  if (playAuraGroup.visible && particles) {
+    playAuraGroup.rotation.copy(particles.rotation);
+  }
+}
+
+createPlayAuraLayer();
 
 // ============================================================
 //  浮空粒子层 (独立 Points)
@@ -7582,6 +7873,7 @@ function readSavedLyricLayout() {
       lyricGlowBeat: raw.lyricGlowBeat !== false,
       lyricGlowParticles: !!raw.lyricGlowParticles,
       cinema: raw.cinema !== false,
+      playAura: raw.playAura !== false,
       bloom: raw.bloom === true,
       edge: raw.edge === true,
       visualTintMode: raw.visualTintMode === 'custom' ? 'custom' : 'auto',
@@ -7672,6 +7964,7 @@ function saveLyricLayout() {
       lyricGlowBeat: !!fx.lyricGlowBeat,
       lyricGlowParticles: !!fx.lyricGlowParticles,
       cinema: !!fx.cinema,
+      playAura: fx.playAura !== false,
       bloom: !!fx.bloom,
       edge: !!fx.edge,
       visualTintMode: fx.visualTintMode === 'custom' ? 'custom' : 'auto',
@@ -12235,7 +12528,7 @@ function updateLocalBeatModal() {
   var desc = document.getElementById('local-beat-desc');
   if (desc) desc.textContent = mode === 'dj'
     ? '适合 DJ、长混音或鼓点密集的本地音频，会使用更稳定的低频锁拍并进入 DJ 视觉驱动。'
-    : '适合普通歌曲和日常播放，会沿用 Mineradio 电影视角的综合节奏分析。';
+    : "适合普通歌曲和日常播放，会沿用 xu's radio 电影视角的综合节奏分析。";
   var start = document.getElementById('local-beat-start-btn');
   var cancel = document.getElementById('local-beat-cancel-btn');
   var later = document.getElementById('local-beat-later-btn');
@@ -15564,7 +15857,7 @@ function renderHomeDiscover() {
   var weatherKicker = document.getElementById('home-weather-kicker');
   var weatherMeta = document.getElementById('home-weather-meta');
   if (weatherTitle) weatherTitle.textContent = '我的音乐库';
-  if (weatherKicker) weatherKicker.textContent = 'Mineradio · Your Library';
+  if (weatherKicker) weatherKicker.textContent = "xu's radio · Your Library";
   if (sub) {
     if (loggedOutHome) sub.textContent = '登录后会把你的歌单、常听歌手和最近播放放在这里；也可以直接搜索或导入本地音乐。';
     else sub.textContent = '从你的歌单、最近播放和常听歌手开始，天气电台放在需要氛围的时候再开。';
@@ -20089,6 +20382,7 @@ var presetMeta = [
   { name: '唱片', desc: '唱片 · 圆形封面' },
   { name: '星河', desc: '壁纸粒子 · 音乐律动' },
   { name: '安魂', desc: '骷髅·YUI7W', descHtml: '骷髅·<span class="pc-yui7w">YUI7W</span>' },
+  { name: '霓虹舞台', desc: '歌手 · 圆形舞台 · 山场观众' },
 ];
 var presetIcons = [
   '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 14c3-2 5-2 8 0s5 2 8 0M3 10c3-2 5-2 8 0s5 2 8 0M3 18c3-2 5-2 8 0s5 2 8 0"/></svg>',
@@ -20098,8 +20392,9 @@ var presetIcons = [
   '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.4"/><path d="M16.5 5.2c2.1.9 3.4 2.4 4 4.5"/><path d="M18.8 3.2l1.5 4.8"/></svg>',
   '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 15c2.2-4.4 4.4-4.4 6.6 0s4.4 4.4 6.6 0S20.6 10.6 23 15"/><path d="M3 9c2.2 2.2 4.4 2.2 6.6 0s4.4-2.2 6.6 0S20.6 11.2 23 9"/><circle cx="12" cy="12" r="1.7" fill="currentColor"/></svg>',
   '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3.2h4v6.2h4.2v3.8H14v7.6h-4v-7.6H5.8V9.4H10z"/></svg>',
+  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18h16"/><path d="M7 18 12 4l5 14"/><path d="M4 8l5 5"/><path d="M20 8l-5 5"/><path d="M9 13h6"/><circle cx="12" cy="4" r="1.7" fill="currentColor" stroke="none"/></svg>',
 ];
-var presetDisplayOrder = [0, 6, 5, 4, 2, 1, 3];
+var presetDisplayOrder = [0, 7, 6, 5, 4, 2, 1, 3];
 var lyricColorPresets = [
   { name:'雾蓝', color:'#a9b8c8' },
   { name:'银蓝', color:'#9db8cf' },
@@ -20189,6 +20484,7 @@ function normalizeFxArchiveSnapshot(raw) {
     backgroundColorCustom: raw.backgroundColorMode === 'custom' || !!raw.backgroundColorCustom,
     floatLayer: !!raw.floatLayer,
     cinema: raw.cinema !== false,
+    playAura: raw.playAura !== false,
     edge: !!raw.edge,
     aiDepth: !!raw.aiDepth,
     bloom: !!raw.bloom,
@@ -20539,7 +20835,7 @@ function userFxArchiveExportPayload(slot) {
   };
 }
 function safeArchiveFileName(name) {
-  return String(name || 'Mineradio 用户存档').replace(/[\\/:*?"<>|]+/g, '-').slice(0, 48) + '.json';
+  return String(name || "xu's radio 用户存档").replace(/[\\/:*?"<>|]+/g, '-').slice(0, 48) + '.json';
 }
 function exportUserFxArchive(index) {
   var slot = userFxArchiveAt(index);
@@ -21225,14 +21521,15 @@ function refreshPresetGrid() {
 function triggerPresetParticleTransition(fromPreset, toPreset) {
   presetTransition.active = true;
   presetTransition.start = uniforms.uTime.value;
-  presetTransition.duration = toPreset === 5 ? 0.30 : 0.24;
+  presetTransition.duration = toPreset === 7 ? 0.36 : (toPreset === 5 ? 0.30 : 0.24);
   presetTransition.from = fromPreset;
   presetTransition.to = toPreset;
   var newVisual = toPreset >= 4;
   var wallpaperFlow = toPreset === 5;
-  uniforms.uScatter.value = Math.max(uniforms.uScatter.value, fx.scatter + (newVisual ? (wallpaperFlow ? 0.008 : 0.024) : 0.12));
-  uniforms.uBurstAmt.value = Math.max(uniforms.uBurstAmt.value, wallpaperFlow ? 0.05 : 0.15);
-  camPunch = Math.max(camPunch, wallpaperFlow ? 0.04 : 0.12);
+  var neonStage = toPreset === 7;
+  uniforms.uScatter.value = Math.max(uniforms.uScatter.value, fx.scatter + (newVisual ? (neonStage ? 0.034 : (wallpaperFlow ? 0.008 : 0.024)) : 0.12));
+  uniforms.uBurstAmt.value = Math.max(uniforms.uBurstAmt.value, neonStage ? 0.22 : (wallpaperFlow ? 0.05 : 0.15));
+  camPunch = Math.max(camPunch, neonStage ? 0.18 : (wallpaperFlow ? 0.04 : 0.12));
   for (var i = 0; i < 3; i++) {
     triggerRipple((Math.random() - 0.5) * 3.4, (Math.random() - 0.5) * 3.4, 0.58 + Math.random() * 0.32);
   }
@@ -21251,9 +21548,10 @@ function tickPresetTransition() {
   var wave = Math.sin(t * Math.PI);
   var newVisual = presetTransition.to >= 4;
   var wallpaperFlow = presetTransition.to === 5;
-  uniforms.uScatter.value = Math.max(uniforms.uScatter.value, fx.scatter + wave * (newVisual ? (wallpaperFlow ? 0.008 : 0.026) : 0.16));
-  uniforms.uBurstAmt.value = Math.max(uniforms.uBurstAmt.value, wave * (wallpaperFlow ? 0.045 : (newVisual ? 0.12 : 0.15)));
-  uniforms.uPointScale.value = fx.point * (1 + wave * (wallpaperFlow ? 0.016 : 0.048));
+  var neonStage = presetTransition.to === 7;
+  uniforms.uScatter.value = Math.max(uniforms.uScatter.value, fx.scatter + wave * (newVisual ? (neonStage ? 0.038 : (wallpaperFlow ? 0.008 : 0.026)) : 0.16));
+  uniforms.uBurstAmt.value = Math.max(uniforms.uBurstAmt.value, wave * (neonStage ? 0.20 : (wallpaperFlow ? 0.045 : (newVisual ? 0.12 : 0.15))));
+  uniforms.uPointScale.value = fx.point * (1 + wave * (neonStage ? 0.075 : (wallpaperFlow ? 0.016 : 0.048)));
   if (raw >= 1) {
     presetTransition.active = false;
     syncFxUniforms();
@@ -21278,8 +21576,9 @@ function setPreset(p, opts) {
     else if (p === 4) { orbit.userRadius = 6.5; orbit.userPhi = 0.04; orbit.userTheta = 0.0; orbit.baselineRadius = 6.5; orbit.baselinePhi = 0.04; }
     else if (p === 5) { orbit.userRadius = 9.4; orbit.userPhi = 0.34; orbit.userTheta = -0.52; orbit.baselineRadius = 9.4; orbit.baselinePhi = 0.34; }
     else if (p === 6) { orbit.userRadius = 7.4; orbit.userPhi = 0.10; orbit.userTheta = 0.18; orbit.baselineRadius = 7.4; orbit.baselinePhi = 0.10; }
+    else if (p === 7) { orbit.userRadius = 8.2; orbit.userPhi = 0.16; orbit.userTheta = -0.20; orbit.baselineRadius = 8.2; orbit.baselinePhi = 0.16; }
     else              { orbit.userRadius = 6.6; orbit.userPhi = 0.08; orbit.userTheta = 0.0; orbit.baselineRadius = 6.6; orbit.baselinePhi = 0.08; }
-    orbit.baselineTheta = p === 5 ? -0.52 : (p === 6 ? 0.18 : 0.0);
+    orbit.baselineTheta = p === 5 ? -0.52 : (p === 6 ? 0.18 : (p === 7 ? -0.20 : 0.0));
   }
   if (changed && !opts.silent) showToast('视觉预设: ' + presetMeta[p].name);
   var shouldCommitPlaybackPreset = !!opts.commitPlaybackPreset || !opts.noSave;
@@ -21480,6 +21779,8 @@ function updateFxInputs() {
   var floatToggle = document.getElementById('t-float');
   if (floatToggle) floatToggle.classList.toggle('on', fx.floatLayer);
   document.getElementById('t-cinema').classList.toggle('on', fx.cinema);
+  var playAuraToggle = document.getElementById('t-playAura');
+  if (playAuraToggle) playAuraToggle.classList.toggle('on', fx.playAura !== false);
   var lyricGlowToggle = document.getElementById('t-lyricGlow');
   if (lyricGlowToggle) lyricGlowToggle.classList.toggle('on', fx.lyricGlow);
   var lyricGlowBeatToggle = document.getElementById('t-lyricGlowBeat');
@@ -21589,6 +21890,7 @@ function fxPanelTargetForNode(node, current) {
   var id = node.id || '';
   var inputId = fxPanelInputId(node);
   if (id === 'preset-grid' || id === 'user-archive-grid') return 'presets';
+  if (id === 'playback-fx-primary-controls') return 'motion';
   if (id === 'fx-lyric-fold') return 'lyrics';
   if (id === 'fx-overlay-fold' || id === 'fx-stage-fold') return 'motion';
   if (id === 'fx-advanced' || node.classList.contains('fx-actions')) return 'advanced';
@@ -21936,18 +22238,41 @@ function shouldSuppressDefaultConfiguredHotkey(e) {
 function ensureHotkeySettingsButton() {
   var panel = document.getElementById('fx-panel');
   var head = panel && panel.querySelector('.fx-head');
-  if (!head || document.getElementById('hotkey-settings-btn')) return;
+  if (!head) return;
   if (head.firstElementChild) head.firstElementChild.classList.add('fx-head-main');
-  var actions = document.createElement('div');
-  actions.className = 'fx-head-actions';
-  var btn = document.createElement('button');
-  btn.id = 'hotkey-settings-btn';
-  btn.type = 'button';
-  btn.className = 'fx-mini-btn ghost';
-  btn.textContent = '热键';
-  btn.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); openHotkeySettings(); });
-  actions.appendChild(btn);
-  head.appendChild(actions);
+  var actions = head.querySelector('.fx-head-actions');
+  if (!actions) {
+    actions = document.createElement('div');
+    actions.className = 'fx-head-actions';
+    head.appendChild(actions);
+  }
+  if (!document.getElementById('playback-fx-jump-btn')) {
+    var fxBtn = document.createElement('button');
+    fxBtn.id = 'playback-fx-jump-btn';
+    fxBtn.type = 'button';
+    fxBtn.className = 'fx-mini-btn ghost';
+    fxBtn.textContent = '动效';
+    fxBtn.title = '跳到播放特效';
+    fxBtn.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      setFxPanelTab('motion');
+      setTimeout(function(){
+        var target = document.getElementById('playback-fx-primary-controls') || document.getElementById('t-playAura');
+        if (target && target.scrollIntoView) target.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      }, 30);
+    });
+    actions.appendChild(fxBtn);
+  }
+  if (!document.getElementById('hotkey-settings-btn')) {
+    var btn = document.createElement('button');
+    btn.id = 'hotkey-settings-btn';
+    btn.type = 'button';
+    btn.className = 'fx-mini-btn ghost';
+    btn.textContent = '热键';
+    btn.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); openHotkeySettings(); });
+    actions.appendChild(btn);
+  }
 }
 function ensureHotkeyModal() {
   var modal = document.getElementById('hotkey-modal');
@@ -21958,7 +22283,7 @@ function ensureHotkeyModal() {
   modal.innerHTML =
     '<div class="hotkey-dialog" role="dialog" aria-modal="true" aria-label="热键设置">' +
       '<div class="hotkey-head">' +
-        '<div><div class="hotkey-title">热键设置</div><div class="hotkey-sub">局内热键只在 Mineradio 窗口内生效；全局热键会向系统注册，并检测是否被占用。</div></div>' +
+        "<div><div class=\"hotkey-title\">热键设置</div><div class=\"hotkey-sub\">局内热键只在 xu's radio 窗口内生效；全局热键会向系统注册，并检测是否被占用。</div></div>" +
         '<button class="hotkey-close" type="button" data-hotkey-close aria-label="关闭">×</button>' +
       '</div>' +
       '<div class="hotkey-toolbar">' +
@@ -21983,7 +22308,7 @@ function ensureHotkeyModal() {
 }
 function hotkeyStatusMarkup(scope, actionKey, binding, duplicate) {
   if (!binding) return '<span class="hotkey-status">未设置</span>';
-  if (duplicate && duplicate[binding] > 1) return '<span class="hotkey-status conflict"><span class="source-icon">!</span>Mineradio 内部重复</span>';
+  if (duplicate && duplicate[binding] > 1) return "<span class=\"hotkey-status conflict\"><span class=\"source-icon\">!</span>xu's radio 内部重复</span>";
   if (scope === 'local') return '<span class="hotkey-status ok">可用</span>';
   var status = hotkeyGlobalStatus[actionKey];
   if (!status) return '<span class="hotkey-status">待检测</span>';
@@ -22372,7 +22697,7 @@ function toggleFx(key) {
   var toggle = document.getElementById(toggleId);
   if (toggle) toggle.classList.toggle('on', fx[key]);
   syncFxUniforms();
-  if (key === 'lyricCameraLock' || key === 'lyricGlow' || key === 'lyricGlowBeat' || key === 'lyricGlowParticles' || key === 'bloom' || key === 'edge' || key === 'cinema' || key === 'desktopLyrics' || key === 'desktopLyricsClickThrough' || key === 'desktopLyricsCinema' || key === 'desktopLyricsHighlight' || key === 'wallpaperMode' || key === 'shelfShowPodcasts' || key === 'shelfMergeCollections' || key === 'liveBackgroundKeep') saveLyricLayout();
+  if (key === 'lyricCameraLock' || key === 'lyricGlow' || key === 'lyricGlowBeat' || key === 'lyricGlowParticles' || key === 'bloom' || key === 'edge' || key === 'cinema' || key === 'playAura' || key === 'desktopLyrics' || key === 'desktopLyricsClickThrough' || key === 'desktopLyricsCinema' || key === 'desktopLyricsHighlight' || key === 'wallpaperMode' || key === 'shelfShowPodcasts' || key === 'shelfMergeCollections' || key === 'liveBackgroundKeep') saveLyricLayout();
   if (key === 'floatLayer') { if (fx.floatLayer) createFloatLayer(); else destroyFloatLayer(); }
   if (key === 'desktopLyrics') applyDesktopLyricsState(true);
   if (key === 'desktopLyricsClickThrough' || key === 'desktopLyricsCinema' || key === 'desktopLyricsHighlight') pushDesktopLyricsState(true);
@@ -22409,6 +22734,7 @@ function toggleFx(key) {
   if (key === 'bloom') showToast(fx.bloom ? '溢光已开启' : '溢光已关闭');
   if (key === 'edge') showToast(fx.edge ? '已开启轮廓高亮' : '已关闭轮廓高亮');
   if (key === 'cinema') showToast(fx.cinema ? '已开启电影镜头' : '已关闭电影镜头');
+  if (key === 'playAura') showToast(fx.playAura !== false ? '播放能量环已开启' : '播放能量环已关闭');
   if (key === 'aiDepth') {
     if (fx.aiDepth) {
       aiDepthFailUntil = 0;
@@ -22804,7 +23130,7 @@ function syncUpdatePreviewStateClass() {
   if (foot) {
     if (isDownloading) foot.textContent = (updatePreviewState.message || (isPatch ? '正在下载快速补丁' : '正在下载完整安装包')) + (updateProgressDetailText() ? ' · ' + updateProgressDetailText() : '');
     else if (isError) foot.textContent = '下载失败：' + (updatePreviewState.errorReason || updatePreviewState.errorDetail || updatePreviewState.message || '请稍后重试') + (updatePreviewState.failedAttempts && updatePreviewState.failedAttempts.length ? ' · 已尝试 ' + updatePreviewState.failedAttempts.length + ' 条线路' : '');
-    else if (isReady && isPatch) foot.textContent = updatePreviewState.restartRequired ? '快速补丁已应用，重启 Mineradio 后生效。' : '快速补丁已应用。';
+    else if (isReady && isPatch) foot.textContent = updatePreviewState.restartRequired ? "快速补丁已应用，重启 xu's radio 后生效。" : '快速补丁已应用。';
     else if (isReady) foot.textContent = updatePreviewState.cached ? '已复用上次校验通过的安装包，不会重复下载。' : '安装包已准备好，点击按钮后再打开安装。';
     else if (updatePreviewState.patchAvailable) foot.textContent = '优先使用轻量补丁，只更新缺失或变更的资源文件；不适用时可下载完整安装包。';
     else foot.textContent = updatePreviewState.updateAvailable ? '没有可用快速补丁时会下载完整安装包。' : '当前版本已是最新。';
@@ -23062,7 +23388,7 @@ async function restartForAppliedPatch() {
       return;
     }
   } catch (e) {}
-  showToast('请手动重启 Mineradio 让补丁生效');
+  showToast("请手动重启 xu's radio 让补丁生效");
 }
 
 async function openDownloadedUpdateInstaller(filePath) {
@@ -24444,7 +24770,7 @@ var visualGuideSteps = [
   {
     target: 'stage',
     kicker: '01 / Welcome',
-    title: 'Mineradio 是用来听歌的视觉播放器',
+    title: "xu's radio 是用来听歌的视觉播放器",
     body: '它不是单纯歌单页：搜索或导入一首歌后，封面、歌词、粒子和镜头会跟着音乐一起动。'
   },
   {
@@ -26107,7 +26433,7 @@ function markSplashReadyToEnter() {
   s.classList.add('ready');
   s.setAttribute('role', 'button');
   s.setAttribute('tabindex', '0');
-  s.setAttribute('aria-label', '点击进入 Mineradio');
+  s.setAttribute('aria-label', "点击进入 xu's radio");
 }
 
 document.addEventListener('DOMContentLoaded', function(){
@@ -26151,7 +26477,7 @@ function currentDesktopSongMeta() {
   var song = playQueue && currentIdx >= 0 ? playQueue[currentIdx] : null;
   song = song || currentLyricSong && currentLyricSong() || {};
   return {
-    title: song.name || song.title || 'Mineradio',
+    title: song.name || song.title || "xu's radio",
     artist: song.artist || song.ar || song.author || '',
     cover: (typeof songCoverSrc === 'function' && song) ? (songCoverSrc(song, 360) || song.cover || '') : (song.cover || '')
   };
@@ -26197,7 +26523,7 @@ function currentDesktopLyricSnapshot() {
       progressSpan: 4.8
     };
   }
-  return { text: normalizeDesktopLyricText(currentDesktopSongMeta().title || 'Mineradio'), progress: 0, progressSpan: 4.8 };
+  return { text: normalizeDesktopLyricText(currentDesktopSongMeta().title || "xu's radio"), progress: 0, progressSpan: 4.8 };
 }
 function desktopOverlayColorValue(value, fallback) {
   var raw = String(value || '').trim();
@@ -26828,6 +27154,7 @@ function animate() {
   tickPresetTransition();
 
   updateRipples(dt);
+  updatePlayAuraLayer(dt);
   updateFloatLayer(dt);
   if (shelfManager) shelfManager.update(dt);
   tickLyricsParticles();
@@ -26852,6 +27179,9 @@ function animate() {
   particles.rotation.x += (targetRotX - particles.rotation.x) * 0.055;
   if (bloomParticles) {
     bloomParticles.rotation.copy(particles.rotation);
+  }
+  if (playAuraGroup) {
+    playAuraGroup.rotation.copy(particles.rotation);
   }
   // 同步给背面粒子层
   if (floatGroup) {

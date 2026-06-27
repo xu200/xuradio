@@ -1,9 +1,9 @@
 {
   "name": "mineradio",
-  "productName": "Mineradio",
+  "productName": "xu's radio",
   "version": "1.1.1",
   "description": "沉浸式音乐播放器，融合天气电台、歌词舞台、粒子视觉和 3D 歌单架。",
-  "author": "Mineradio",
+  "author": "xu's radio",
   "main": "desktop/main.js",
   "private": true,
   "scripts": {
@@ -13,7 +13,7 @@
   },
   "build": {
     "appId": "com.mineradio.desktop",
-    "productName": "Mineradio",
+    "productName": "xu's radio",
     "directories": {
       "output": "dist",
       "buildResources": "build"
@@ -52,7 +52,7 @@
       "allowToChangeInstallationDirectory": false,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "Mineradio",
+      "shortcutName": "xu's radio",
       "installerIcon": "build/icon.ico",
       "uninstallerIcon": "build/icon.ico",
       "installerSidebar": "build/installerSidebar.bmp",
